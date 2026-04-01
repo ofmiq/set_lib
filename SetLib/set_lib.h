@@ -4,8 +4,8 @@
 #include <stddef.h>
 
 /**
- * @brief Structure of an integer set. 
- * @note Elements are unique and sorted. 
+ * @brief Structure of an integer set.
+ * @note Elements are unique and sorted.
  */
 typedef struct {
   int* data;
@@ -29,7 +29,7 @@ set_of_int_t* set_create_from_array(const int* arr, int n);
 
 /**
  * @brief Deletes and cleans up a set.
- * @param set Pointer to the set to be deleted. 
+ * @param set Pointer to the set to be deleted.
  */
 void set_destroy(set_of_int_t* set);
 
