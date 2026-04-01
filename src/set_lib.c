@@ -235,3 +235,59 @@ set_of_int_t* set_difference(const set_of_int_t* a, const set_of_int_t* b) {
 
   return difference_set;
 }
+
+set_of_int_t* set_sym_difference(const set_of_int_t* a, const set_of_int_t* b) {
+  if (!a || !b) {
+    return NULL;
+  }
+
+  size_t a_size = a->size;
+  size_t b_size = b->size;
+
+  if (a_size == 0) {
+    return set_create_from_array(b->data, b_size);
+  }
+  if (b_size == 0) {
+    return set_create_from_array(a->data, a_size);
+  }
+
+  set_of_int_t* sym_diff_set = set_create(a_size + b_size);
+  if (!sym_diff_set) {
+    return NULL;
+  }
+
+  size_t l = 0;
+  size_t r = 0;
+  size_t k = 0;
+
+  while (l < a_size && r < b_size) {
+    if (a->data[l] < b->data[r]) {
+      sym_diff_set->data[k] = a->data[l];
+      ++l;
+      ++k;
+    } else if (a->data[l] > b->data[r]) {
+      sym_diff_set->data[k] = b->data[r];
+      ++r;
+      ++k;
+    } else {
+      ++l;
+      ++r;
+    }
+  }
+
+  while (l < a_size) {
+    sym_diff_set->data[k] = a->data[l];
+    ++l;
+    ++k;
+  }
+
+  while (r < b_size) {
+    sym_diff_set->data[k] = b->data[r];
+    ++r;
+    ++k;
+  }
+
+  sym_diff_set->size = k;
+
+  return sym_diff_set;
+}

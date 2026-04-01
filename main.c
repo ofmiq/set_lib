@@ -72,6 +72,13 @@ int main() {
     set_print(difference_set);
   }
 
+  printf("\nsymetric diff between two sets\n");
+  set_of_int_t* symetric_difference_set = set_sym_difference(set_c, set_d);
+  if (symetric_difference_set) {
+    printf("sym diff set: ");
+    set_print(symetric_difference_set);
+  }
+
   printf("\nmemory freeing\n");
   set_destroy(set1);
   set_destroy(set3);
@@ -86,6 +93,7 @@ int main() {
   set_destroy(intersection_set);
 
   set_destroy(difference_set);
+  set_destroy(symetric_difference_set);
 
   printf("all mini tests is passed\n");
 
