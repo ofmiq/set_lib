@@ -65,6 +65,13 @@ int main() {
     set_print(intersection_set);
   }
 
+  printf("\ndiff between two sets\n");
+  set_of_int_t* difference_set = set_difference(set_c, set_d);
+  if (difference_set) {
+    printf("diff set: ");
+    set_print(difference_set);
+  }
+
   printf("\nmemory freeing\n");
   set_destroy(set1);
   set_destroy(set3);
@@ -77,6 +84,8 @@ int main() {
   set_destroy(set_c);
   set_destroy(set_d);
   set_destroy(intersection_set);
+
+  set_destroy(difference_set);
 
   printf("all mini tests is passed\n");
 
