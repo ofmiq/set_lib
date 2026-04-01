@@ -92,3 +92,59 @@ void set_add(set_of_int_t* set, int elem) {
 
   qsort(set->data, set->size, sizeof(int), comparator);
 }
+
+set_of_int_t* set_union(const set_of_int_t* a, const set_of_int_t* b) {
+  if (!a || !b) {
+    return NULL;
+  }
+
+  if (a->size == 0) {
+    return set_create_from_array(b->data, b->size);
+  }
+  if (b->size == 0) {
+    return set_create_from_array(a->data, a->size);
+  }
+
+  size_t a_size = a->size;
+  size_t b_size = b->size;
+
+  set_of_int_t* union_set = set_create(a_size + b_size);
+  if (!union_set) {
+    return NULL;
+  }
+
+  size_t l = 0;
+  size_t r = 0;
+  size_t k = 0;
+
+  while (l < a_size && r < b_size) {
+    if (a->data[l] < b->data[r]) {
+      union_set->data[k] = a->data[l];
+      ++l;
+    } else if (a->data[l] > b->data[r]) {
+      union_set->data[k] = b->data[r];
+      ++r;
+    } else {
+      union_set->data[k] = a->data[l];
+      ++l;
+      ++r;
+    }
+    ++k;
+  }
+
+  while (l < a_size) {
+    union_set->data[k] = a->data[l];
+    ++k;
+    ++l;
+  }
+
+  while (r < b_size) {
+    union_set->data[k] = b->data[r];
+    ++k;
+    ++r;
+  }
+
+  union_set->size = k;
+
+  return union_set;
+}

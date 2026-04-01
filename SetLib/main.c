@@ -17,7 +17,8 @@ int main() {
 
   printf("\nset create from array (unsorted)\n");
   int bad_arr[] = {5, 1, 3};
-  set_of_int_t* set2 = set_create_from_array(bad_arr, 3);
+  int n2 = sizeof(bad_arr) / sizeof(bad_arr[0]);
+  set_of_int_t* set2 = set_create_from_array(bad_arr, n2);
   if (!set2) {
     printf("planned error\n");
   }
@@ -42,9 +43,23 @@ int main() {
     set_print(set3);
   }
 
+  printf("\nunion of two sets\n");
+  int arr_a[] = {2, 4, 6, 8};
+  int arr_b[] = {1, 3, 5, 7};
+  set_of_int_t* set_a = set_create_from_array(arr_a, 4);
+  set_of_int_t* set_b = set_create_from_array(arr_b, 4);
+  set_of_int_t* union_set = set_union(set_a, set_b);
+  if (union_set) {
+    printf("union set: ");
+    set_print(union_set);
+  }
+
   printf("\nmemory freeing\n");
   set_destroy(set1);
   set_destroy(set3);
+  set_destroy(set_a);
+  set_destroy(set_b);
+  set_destroy(union_set);
 
   printf("all mini tests is passed\n");
 
