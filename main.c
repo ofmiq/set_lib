@@ -54,12 +54,29 @@ int main() {
     set_print(union_set);
   }
 
+  printf("\nintersection of two sets\n");
+  int arr_c[] = {1, 3, 5, 7};
+  int arr_d[] = {3, 5, 7, 9};
+  set_of_int_t* set_c = set_create_from_array(arr_c, 4);
+  set_of_int_t* set_d = set_create_from_array(arr_d, 4);
+  set_of_int_t* intersection_set = set_intersection(set_c, set_d);
+  if (intersection_set) {
+    printf("intersection set: ");
+    set_print(intersection_set);
+  }
+
   printf("\nmemory freeing\n");
   set_destroy(set1);
   set_destroy(set3);
+  
   set_destroy(set_a);
   set_destroy(set_b);
   set_destroy(union_set);
+
+
+  set_destroy(set_c);
+  set_destroy(set_d);
+  set_destroy(intersection_set);
 
   printf("all mini tests is passed\n");
 

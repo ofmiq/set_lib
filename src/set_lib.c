@@ -148,3 +148,42 @@ set_of_int_t* set_union(const set_of_int_t* a, const set_of_int_t* b) {
 
   return union_set;
 }
+
+set_of_int_t* set_intersection(const set_of_int_t* a, const set_of_int_t* b) {
+  if (!a || !b) {
+    return NULL;
+  }
+
+  size_t a_size = a->size;
+  size_t b_size = b->size;
+
+  if (a->size == 0 || b->size == 0) {
+    return NULL;
+  }
+
+  set_of_int_t* intersection_set = set_create(a_size + b_size);
+  if (!intersection_set) {
+    return NULL;
+  }
+
+  size_t l = 0;
+  size_t r = 0;
+  size_t k = 0;
+
+  while (l < a_size && r < b_size) {
+    if (a->data[l] < b->data[r]) {
+      ++l;
+    } else if (a->data[l] > b->data[r]) {
+      ++r;
+    } else {
+      intersection_set->data[k] = a->data[l];
+      ++l;
+      ++r;
+      ++k;
+    }
+  }
+
+  intersection_set->size = k;
+
+  return intersection_set;
+}
