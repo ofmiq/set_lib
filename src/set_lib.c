@@ -9,6 +9,24 @@ static int comparator(const void* a, const void* b) {
   return (arg1 > arg2) - (arg1 < arg2);
 }
 
+static void set_shrink_to_fit(set_of_int_t* set) {
+  if (!set || !set->data) {
+    return;
+  }
+
+  if (set->size == 0) {
+    free(set->data);
+    set->data = NULL;
+    return;
+  }
+
+  int* fitted_data = (int*)realloc(set->data, sizeof(int) * set->size);
+
+  if (fitted_data) {
+    set->data = fitted_data;
+  }
+}
+
 set_of_int_t* set_create(int n) {
   set_of_int_t* set = (set_of_int_t*)malloc(sizeof(set_of_int_t));
   if (!set) {
@@ -51,6 +69,7 @@ set_of_int_t* set_create_from_array(int* arr, size_t n) {
   }
 
   set->size = l;
+  set_shrink_to_fit(set);
 
   return set;
 }
@@ -151,6 +170,7 @@ set_of_int_t* set_union(const set_of_int_t* a, const set_of_int_t* b) {
   }
 
   union_set->size = k;
+  set_shrink_to_fit(union_set);
 
   return union_set;
 }
@@ -164,7 +184,7 @@ set_of_int_t* set_intersection(const set_of_int_t* a, const set_of_int_t* b) {
   size_t b_size = b->size;
 
   if (a->size == 0 || b->size == 0) {
-    return NULL;
+    return set_create(0);
   }
 
   set_of_int_t* intersection_set = set_create(a_size + b_size);
@@ -190,6 +210,7 @@ set_of_int_t* set_intersection(const set_of_int_t* a, const set_of_int_t* b) {
   }
 
   intersection_set->size = k;
+  set_shrink_to_fit(intersection_set);
 
   return intersection_set;
 }
@@ -238,6 +259,7 @@ set_of_int_t* set_difference(const set_of_int_t* a, const set_of_int_t* b) {
   }
 
   difference_set->size = k;
+  set_shrink_to_fit(difference_set);
 
   return difference_set;
 }
@@ -294,6 +316,7 @@ set_of_int_t* set_sym_difference(const set_of_int_t* a, const set_of_int_t* b) {
   }
 
   sym_diff_set->size = k;
+  set_shrink_to_fit(sym_diff_set);
 
   return sym_diff_set;
 }
