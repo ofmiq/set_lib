@@ -25,7 +25,7 @@ int main() {
 
   printf("\nset_add\n");
   if (set1) {
-    printf("25 -> 60 (новое) -> 20\n");
+    printf("25 -> 60 (new) -> 20\n");
     set_add(set1, 25);
     set_add(set1, 60);
     set_add(set1, 20);
@@ -72,11 +72,11 @@ int main() {
     set_print(difference_set);
   }
 
-  printf("\nsymetric diff between two sets\n");
-  set_of_int_t* symetric_difference_set = set_sym_difference(set_c, set_d);
-  if (symetric_difference_set) {
+  printf("\nsymmetric diff between two sets\n");
+  set_of_int_t* symmetric_difference_set = set_sym_difference(set_c, set_d);
+  if (symmetric_difference_set) {
     printf("sym diff set: ");
-    set_print(symetric_difference_set);
+    set_print(symmetric_difference_set);
   }
 
   printf("\nmemory freeing\n");
@@ -94,7 +94,7 @@ int main() {
   set_destroy(intersection_set);
 
   set_destroy(difference_set);
-  set_destroy(symetric_difference_set);
+  set_destroy(symmetric_difference_set);
 
   printf("all mini tests is passed\n");
 
