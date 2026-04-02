@@ -19,8 +19,8 @@ int main() {
   int bad_arr[] = {5, 1, 3};
   int n2 = sizeof(bad_arr) / sizeof(bad_arr[0]);
   set_of_int_t* set2 = set_create_from_array(bad_arr, n2);
-  if (!set2) {
-    printf("planned error\n");
+  if (set2) {
+    set_print(set2);
   }
 
   printf("\nset_add\n");
@@ -81,6 +81,7 @@ int main() {
 
   printf("\nmemory freeing\n");
   set_destroy(set1);
+  set_destroy(set2);
   set_destroy(set3);
   
   set_destroy(set_a);

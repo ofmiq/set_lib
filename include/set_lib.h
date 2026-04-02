@@ -25,7 +25,7 @@ set_of_int_t* set_create(int n);
  * @param n Number of elements in the array.
  * @return Pointer to a newly allocated set.
  */
-set_of_int_t* set_create_from_array(const int* arr, int n);
+set_of_int_t* set_create_from_array(int* arr, size_t n);
 
 /**
  * @brief Deletes and cleans up a set.

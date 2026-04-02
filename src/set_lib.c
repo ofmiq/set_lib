@@ -25,16 +25,9 @@ set_of_int_t* set_create(int n) {
   return set;
 }
 
-// TODO: refactor, must work with any array (delete duplicates, sort)
-set_of_int_t* set_create_from_array(const int* arr, int n) {
+set_of_int_t* set_create_from_array(int* arr, size_t n) {
   if (!arr || n <= 0) {
     return NULL;
-  }
-
-  for (int i = 1; i < n; ++i) {
-    if (arr[i] < arr[i - 1]) {
-      return NULL;
-    }
   }
 
   set_of_int_t* set = set_create(n);
@@ -42,9 +35,22 @@ set_of_int_t* set_create_from_array(const int* arr, int n) {
     return NULL;
   }
 
-  for (int i = 0; i < n; ++i) {
-    set->data[i] = arr[i];
+  qsort(arr, n, sizeof(int), comparator);
+
+  size_t l = 0;
+  size_t r = 0;
+
+  while (l < n) {
+    if (arr[l] != set->data[r]) {
+      set->data[r] = arr[l];
+      ++l;
+      ++r;
+    } else {
+      ++l;
+    }
   }
+
+  set->size = l;
 
   return set;
 }
