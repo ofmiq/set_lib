@@ -55,20 +55,17 @@ set_of_int_t* set_create_from_array(int* arr, size_t n) {
 
   qsort(arr, n, sizeof(int), comparator);
 
-  size_t l = 0;
-  size_t r = 0;
+  set->data[0] = arr[0];
+  size_t write_idx = 1;
 
-  while (l < n) {
-    if (arr[l] != set->data[r]) {
-      set->data[r] = arr[l];
-      ++l;
-      ++r;
-    } else {
-      ++l;
+  for (size_t read_idx = 1; read_idx < n; ++read_idx) {
+    if (arr[read_idx] != set->data[write_idx - 1]) {
+      set->data[write_idx] = arr[read_idx];
+      ++write_idx;
     }
   }
 
-  set->size = l;
+  set->size = write_idx;
   set_shrink_to_fit(set);
 
   return set;
